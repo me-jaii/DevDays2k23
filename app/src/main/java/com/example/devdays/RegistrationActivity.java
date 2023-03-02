@@ -32,6 +32,7 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        // TODO You Didn't initialize mAuth
         mAuth = FirebaseAuth.getInstance();
 
         email = findViewById(R.id.email);
@@ -60,6 +61,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     password.setError("Password is Required !!");
                 }
                 else{
+                    // TODO u didn't initialize progressDialog also so comment it or initialize it
                     //progressDialog.setMessage("Registration in Progress");
                     //progressDialog.setCanceledOnTouchOutside(false);
                     //progressDialog.show();
