@@ -31,6 +31,9 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        mAuth = FirebaseAuth.getInstance();
+
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         registerbtn = findViewById(R.id.registerbtn);
@@ -57,9 +60,9 @@ public class RegistrationActivity extends AppCompatActivity {
                     password.setError("Password is Required !!");
                 }
                 else{
-                    progressDialog.setMessage("Registration in Progress");
-                    progressDialog.setCanceledOnTouchOutside(false);
-                    progressDialog.show();
+                    //progressDialog.setMessage("Registration in Progress");
+                    //progressDialog.setCanceledOnTouchOutside(false);
+                    //progressDialog.show();
                     mAuth.createUserWithEmailAndPassword(emailString,passwordString).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
