@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "650712339959",
+    "project_id": "devdays-40ae9",
+    "storage_bucket": "devdays-40ae9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650712339959:android:25db0894b9d3ceab628af2",
+        "android_client_info": {
+          "package_name": "com.example.devdays"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "650712339959-gsdkcbing4pssrm7bupktlmvkmhblp39.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJFIMjYfBabffj0FlKitzVv6VQ2bEurRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "650712339959-gsdkcbing4pssrm7bupktlmvkmhblp39.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

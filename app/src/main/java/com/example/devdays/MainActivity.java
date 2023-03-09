@@ -2,6 +2,7 @@ package com.example.devdays;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,47 +28,67 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private FirebaseFirestore db;
 
-    EditText name;
-    EditText note;
-
-    Button add;
+//    EditText title;
+//    EditText description;
+//    EditText note;
+//
+//    Button add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        User user = new User("shujayke@gmail.com","Shujay");
-//        Map<String, Object> data = new HashMap<>();
-//        data.put("name", "Jai Surya");
-//        data.put("email", "jaisurya@gmail.com");
-
-        db.collection("users").document()
-                .set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(),"Set",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+        Button addButton = findViewById(R.id.addNoteButton);
+        EditText titleText = findViewById(R.id.titleEditText);
+        EditText  descriptionText=findViewById(R.id.descriptionEditText);
 
 
-//        db.collection("users")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                Log.d(TAG, document.getId() + " => " + document.getData());
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String title = titleText.getText().toString();
+                String description = descriptionText.getText().toString();
+
+                Map<String, Object> data = new HashMap<>();
+                data.put("title", title);
+                data.put("description", description);
+
+                db.collection("users").document()
+                        .set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(getApplicationContext(),"Set",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+//                db.collection("items")
+//                        .add(data)
+//                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                            @Override
+//                            public void onSuccess(DocumentReference documentReference) {
+//                                Toast.makeText(getApplicationContext(), "Item added to database", Toast.LENGTH_SHORT).show();
 //                            }
-//                        } else {
-//                            Log.d(TAG, "Error getting documents: ", task.getException());
-//                        }
-//                    }
-//                });
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(getApplicationContext(), "Error adding item to database", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+
+
+
+
+            }
+        });
+
+
+
+
+
     }
 }
