@@ -1,25 +1,16 @@
 package com.example.devdays;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import androidx.annotation.NonNull;;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,12 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private FirebaseFirestore db;
-
-//    EditText title;
-//    EditText description;
-//    EditText note;
-//
-//    Button add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,35 +45,20 @@ public class MainActivity extends AppCompatActivity {
                         .set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    Toast.makeText(getApplicationContext(),"Set",Toast.LENGTH_SHORT).show();
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(MainActivity.this, "Firestore Updated", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                    //progressDialog.dismiss();
+                                } else {
+                                    Toast.makeText(MainActivity.this, "Updation Failed", Toast.LENGTH_SHORT).show();
+                                    //progressDialog.dismiss();
+                                    Toast.makeText(getApplicationContext(), "Set", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-//                db.collection("items")
-//                        .add(data)
-//                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                            @Override
-//                            public void onSuccess(DocumentReference documentReference) {
-//                                Toast.makeText(getApplicationContext(), "Item added to database", Toast.LENGTH_SHORT).show();
-//                            }
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(getApplicationContext(), "Error adding item to database", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-
-
-
-
             }
         });
-
-
-
-
-
     }
 }
