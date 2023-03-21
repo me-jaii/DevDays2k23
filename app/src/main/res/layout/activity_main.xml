@@ -1,44 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:gravity="center"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:background="#4169E1"
+    tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/titleEditText"
-        android:layout_width="match_parent"
+        android:layout_width="336dp"
+        android:background="@color/white"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:hint="Enter title" />
 
     <EditText
         android:id="@+id/descriptionEditText"
-        android:layout_width="match_parent"
+        android:layout_width="336dp"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/titleEditText"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:background="@color/white"
         android:hint="Enter description" />
 
     <Button
         android:id="@+id/addNoteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/descriptionEditText"
-        android:text="Add Note" />
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:fadingEdge="horizontal"
+        android:text="Add Note"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15dp" />
 
-    <TextView
-        android:id="@+id/notesTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addNoteButton"
-        android:text="Notes:"
-        android:textSize="18sp"
-        android:padding="16dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/notesTextView"
-        android:padding="16dp" />
-
-</RelativeLayout>
+</LinearLayout>
