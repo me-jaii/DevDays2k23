@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DevDays</string>
+    <string name="email" />
+    <string name="password" />
+    <string name="login_button_text" />
+    <string name="register_text" />
 </resources>

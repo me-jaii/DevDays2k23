@@ -1,83 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     android:background="#4169E1"
-    tools:context=".MainActivity">
+    android:padding="16dp">
 
     <EditText
         android:id="@+id/name"
-        android:layout_width="336dp"
-        android:background="@color/white"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:hint="Enter your name" />
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:hint="Name"/>
 
     <EditText
         android:id="@+id/emailid"
-        android:layout_width="336dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:background="@color/white"
-        android:inputType="textEmailAddress"
-        android:hint="Enter your Email Id" />
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:hint="Email"/>
 
     <EditText
         android:id="@+id/phnum"
-        android:layout_width="336dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:inputType="phone"
-        android:hint="Enter your mobile no" />
+        android:hint="Mobile Number"/>
 
-    <EditText
-        android:id="@+id/dob"
-        android:layout_width="200dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="67dp"
-        android:background="@color/white"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:inputType="datetime"
-        android:hint="Enter your dob" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/calander"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginRight="@+id/dob"
-        android:text="calander" />
+        <EditText
+            android:id="@+id/dob"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:hint="Date of Birth"/>
+
+        <Button
+            android:id="@+id/calander"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calendar"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/addNoteButton"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:fadingEdge="horizontal"
-        android:text="Add Note"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="15dp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Note"/>
 
     <Button
         android:id="@+id/Displaycollection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Display Collection"
-        android:textAllCaps="false" />
+        android:text="Display"/>
 
 </LinearLayout>
