@@ -5,7 +5,7 @@ public class User {
     String email_id;
     String name;
 
-    public User() {
+    public User(String title, String email, String mobileno, String dateofbirth) {
     }
 
     public User(String email_id, String name) {

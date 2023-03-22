@@ -10,24 +10,56 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/titleEditText"
+        android:id="@+id/name"
         android:layout_width="336dp"
         android:background="@color/white"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
-        android:hint="Enter title" />
+        android:hint="Enter your name" />
 
     <EditText
-        android:id="@+id/descriptionEditText"
+        android:id="@+id/emailid"
         android:layout_width="336dp"
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titleEditText"
+        android:layout_below="@id/name"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:background="@color/white"
-        android:hint="Enter description" />
+        android:inputType="textEmailAddress"
+        android:hint="Enter your Email Id" />
+
+    <EditText
+        android:id="@+id/phnum"
+        android:layout_width="336dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:inputType="phone"
+        android:hint="Enter your mobile no" />
+
+    <EditText
+        android:id="@+id/dob"
+        android:layout_width="200dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="67dp"
+        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:inputType="datetime"
+        android:hint="Enter your dob" />
+
+    <Button
+        android:id="@+id/calander"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginRight="@+id/dob"
+        android:text="calander" />
 
     <Button
         android:id="@+id/addNoteButton"
@@ -39,5 +71,13 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="15dp" />
+
+    <Button
+        android:id="@+id/Displaycollection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Display Collection"
+        android:textAllCaps="false" />
 
 </LinearLayout>
