@@ -52,7 +52,7 @@ public class Display extends AppCompatActivity {
                                 String userMobile = objectDocumentSnapshot.getString("mobile_no");
                                 String userDOB = objectDocumentSnapshot.getString("date_of_birth");
 
-                                allData = "Name:" + userName + "\n" + "Email:" + userEmail + "\n" + "Mobile:" + userMobile + "DOB" + "\n" + userDOB + "\n";
+                                allData = "Name: " + userName + "\n" + "Email: " + userEmail + "\n" + "Mobile: " + userMobile +"\n" + "DOB: " +  userDOB + "\n";
                             }
 
                             objectTextView.setText(allData);
