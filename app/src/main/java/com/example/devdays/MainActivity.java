@@ -4,32 +4,30 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -39,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
     TextView objectTextView;
     DocumentReference dUser = db.collection("users").document("admins");
 
+    SeekBar seekbar;
+    TextView Text_message;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
+    private String selectedText = "";
+    private String selectedItem = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,28 +51,29 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        EditText titleText = findViewById(R.id.name);
-        EditText descriptionText = findViewById(R.id.emailid);
-        EditText phonenum = findViewById(R.id.phnum);
-        EditText dateofbirth = findViewById(R.id.dob);
+        EditText itemName = findViewById(R.id.item_name);
+        EditText itemID = findViewById(R.id.item_ID);
+        EditText quantity = findViewById(R.id.quantity);
+        EditText purchaseDate = findViewById(R.id.purchase_date);
+        Spinner spinner = findViewById(R.id.my_spinner);
         Button calander = findViewById(R.id.calander);
         Button addButton = findViewById(R.id.addNoteButton);
-        Button displaybtn = findViewById(R.id.Displaycollection);
+        radioGroup = findViewById(R.id.radio_group);
 
-        db.collection("users")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
+//        db.collection("users")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Log.d(TAG, document.getId() + " => " + document.getData());
+//                            }
+//                        } else {
+//                            Log.w(TAG, "Error getting documents.", task.getException());
+//                        }
+//                    }
+//                });
         calander.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         String editTextDateParam = dayOfMonth + " / " + (monthOfYear + 1) + " / " + year;
-                        dateofbirth.setText(editTextDateParam);
+                        purchaseDate.setText(editTextDateParam);
                         Log.d("BIMI", editTextDateParam);
                     }
                 };
@@ -99,45 +105,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        displaybtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Display.class);
-                startActivity(intent);
-            }
-        });
-
-
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String title = titleText.getText().toString();
-                String description = descriptionText.getText().toString();
-                String phnum = phonenum.getText().toString();
-                String dob = dateofbirth.getText().toString();
+                String Item_name = itemName.getText().toString();
+                String Item_ID = itemID.getText().toString();
+                String Quantity = quantity.getText().toString();
+                String PurchaseDate = purchaseDate.getText().toString();
 
+                User user = new User(Item_ID , Item_name , Quantity , PurchaseDate );
 
-                Map<String, Object> data = new HashMap<>();
-                data.put("name", title);
-                data.put("email_id", description);
-                data.put("mobile_no", phnum);
-                data.put("date_of_birth", dob);
 
                 db.collection("users").document()
-                        .set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        .set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(MainActivity.this, "Firestore Updated", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                                    Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
                                     startActivity(intent);
-                                    finish();
+                                    Toast.makeText(MainActivity.this, "Firestore Updated", Toast.LENGTH_SHORT).show();
+
                                 } else {
                                     Toast.makeText(MainActivity.this, "Updation Failed", Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(getApplicationContext(), "Set", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
+            }
+
+        });
+        Text_message = (TextView)findViewById(R.id.quantity);
+        seekbar = (SeekBar)findViewById(R.id.seekBar);
+
+        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar,int progress,boolean fromUser){
+                Text_message.setText(String.valueOf(progress + 1));
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar){
+
             }
         });
     }

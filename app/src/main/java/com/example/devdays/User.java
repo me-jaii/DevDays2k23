@@ -1,44 +1,51 @@
 package com.example.devdays;
 
+import androidx.annotation.NonNull;
+
 public class User {
 
-    String email_id;
-    String name;
-    String mobileno;
-    String dateofbirth;
-
-    public User(String email_id, String name, String mobileno, String dateofbirth) {
-        this.name = name;
-        this.email_id = email_id;
-        this.mobileno = mobileno;
-        this.dateofbirth = dateofbirth;
+    String itemID;
+    String itemName;
+    String Quantity;
+    String PurchaseDate;
+    @NonNull
+    @Override
+    public String toString() {
+        return itemName + itemID + Quantity + PurchaseDate;
     }
-//
-//    public String getEmail_id() {
-//        return email_id;
-//    }
-//
-//    public void setEmail_id(String email_id) {
-//        this.email_id = email_id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public String getMobileno() {
-//        return mobileno;
-//    }
-//
-//    public void setMobileno(String mobileno){this.mobileno = mobileno;}
-//
-//    public String getDateofbirth(){return dateofbirth;}
-//
-//    public void setDateofbirth(String dateofbirth){this.dateofbirth = dateofbirth;}
+
+    public User(String Item_ID, String Item_name, String Quantity, String PurchaseDate) {
+        this.itemName = Item_name;
+        this.itemID = Item_ID;
+        this.Quantity = Quantity;
+        this.PurchaseDate = PurchaseDate;
+    }
+
+    public String getItemID() {
+        return itemID;
+    }
+
+    public void setItemID(String Item_ID) {
+        this.itemID = Item_ID;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String Item_Name) {this.itemName = Item_Name;}
+
+    public String getQuantity() {
+        return Quantity;
+    }
+
+    public void setQuantity(String Quantity){this.Quantity = Quantity;}
+
+    public String getPurchaseDate(){return PurchaseDate;}
+
+    public void setPurchaseDate(String PurchaseDate){this.PurchaseDate = PurchaseDate;}
+
+
 
 
 }

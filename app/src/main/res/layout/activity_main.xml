@@ -8,29 +8,22 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:hint="Name"/>
+        android:hint="Item Name"
+        android:inputType="text"/>
 
     <EditText
-        android:id="@+id/emailid"
+        android:id="@+id/item_ID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:hint="Email"/>
-
-    <EditText
-        android:id="@+id/phnum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:inputType="phone"
-        android:hint="Mobile Number"/>
+        android:hint="Item ID"
+        android:inputType="number"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,13 +31,37 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/dob"
+            android:id="@+id/quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:inputType="number"
+            android:hint="Quantity"/>
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="99"
+            android:progress="0"
+            android:layout_margin="16dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/purchase_date"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:hint="Date of Birth"/>
+            android:hint="Date of Purchase"/>
 
         <Button
             android:id="@+id/calander"
@@ -54,17 +71,64 @@
 
     </LinearLayout>
 
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:text="Mode Of Purchase : "
+            android:textSize="18sp"/>
+
+        <RadioButton
+            android:id="@+id/radio_button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cash"
+            android:textSize="18sp"/>
+
+        <RadioButton
+            android:id="@+id/radio_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paid via QR"
+            android:textSize="18sp"/>
+
+        <RadioButton
+            android:id="@+id/radio_button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Debit / Credit Card"
+            android:textSize="18sp"/>
+
+
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/my_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/choose_an_option"
+        android:background="@drawable/spinner_back"
+        android:entries="@array/my_array"
+        android:textSize="18sp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/drop_arrow"
+        android:layout_gravity="right"/>
+
     <Button
         android:id="@+id/addNoteButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Note"/>
-
-    <Button
-        android:id="@+id/Displaycollection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="getvalues"
-        android:text="Display"/>
+        android:text="Add Note" />
 
 </LinearLayout>
