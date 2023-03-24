@@ -15,29 +15,29 @@
         android:textColorHint="@color/white"
         android:hint="Item Name"
         android:inputType="text"/>
-
-    <EditText
-        android:id="@+id/item_ID"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:hint="Item ID"
-        android:inputType="number"/>
+        android:id="@+id/qnttxtv"
+        android:text="Quantity :"
+        android:textSize="18sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <EditText
+        <TextView
             android:id="@+id/quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:inputType="number"
-            android:hint="Quantity"/>
+            android:hint="0"
+            android:layout_margin="15dp"
+            android:textSize="20sp"/>
 
         <SeekBar
             android:id="@+id/seekBar"
@@ -48,29 +48,6 @@
             android:layout_margin="16dp" />
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/purchase_date"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:hint="Date of Purchase"/>
-
-        <Button
-            android:id="@+id/calander"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Calendar"/>
-
-    </LinearLayout>
-
     <RadioGroup
         android:id="@+id/radio_group"
         android:layout_width="match_parent"
@@ -78,37 +55,39 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/hint"
+            android:id="@+id/gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:text="Mode Of Purchase : "
+            android:text="Storage Type : "
             android:textSize="18sp"/>
 
         <RadioButton
-            android:id="@+id/radio_button1"
+            android:id="@+id/normalst"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cash"
+            android:text="Normal Storaage"
             android:textSize="18sp"/>
 
         <RadioButton
-            android:id="@+id/radio_button2"
+            android:id="@+id/coldst"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Paid via QR"
-            android:textSize="18sp"/>
-
-        <RadioButton
-            android:id="@+id/radio_button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Debit / Credit Card"
+            android:text="Cold storage"
             android:textSize="18sp"/>
 
 
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/Payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:text="Storage Duration : "
+        android:textSize="18sp"/>
 
     <Spinner
         android:id="@+id/my_spinner"

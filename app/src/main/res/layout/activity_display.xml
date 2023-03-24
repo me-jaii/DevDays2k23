@@ -6,10 +6,15 @@
     android:background="#4169E1"
     android:padding="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ListView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-
-
+    <Button
+        android:id="@+id/actionbtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="600dp"
+        android:background="@drawable/circle_btn" />
 </LinearLayout>

@@ -3,8 +3,10 @@ package com.example.devdays;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,18 @@ public class DisplayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
 
-//        objectTextView=findViewById(androidx.core.R.id.text);
+        Button actionbtn = findViewById(R.id.actionbtn);
+
+        actionbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DisplayActivity.this , MainActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+
         mstore=FirebaseFirestore.getInstance();
         mcollection =mstore.collection("users");
         mcollection.get()

@@ -7,8 +7,8 @@
     <string name="choose_an_option">Choose an option:</string>
 
     <array name="my_array">
-        <item>Cash</item>
-        <item>QR scanner</item>
-        <item>Credit / Debit Card</item>
+        <item>Long-Term</item>
+        <item>Short-Term</item>
+        <item>Exchange</item>
     </array>
 </resources>

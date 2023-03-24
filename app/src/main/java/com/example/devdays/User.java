@@ -4,48 +4,34 @@ import androidx.annotation.NonNull;
 
 public class User {
 
-    String itemID;
-    String itemName;
+    String Item_Name;
     String Quantity;
-    String PurchaseDate;
+    String Duration;
     @NonNull
     @Override
     public String toString() {
-        return itemName + itemID + Quantity + PurchaseDate;
+        return Item_Name + Quantity + Duration;
     }
 
-    public User(String Item_ID, String Item_name, String Quantity, String PurchaseDate) {
-        this.itemName = Item_name;
-        this.itemID = Item_ID;
-        this.Quantity = Quantity;
-        this.PurchaseDate = PurchaseDate;
+    public User(String Item_name, String quantity, String duration) {
+        this.Item_Name = Item_name;
+        this.Quantity = quantity;
+        this.Duration = duration;
+//        this.storage = Gender;
     }
 
-    public String getItemID() {
-        return itemID;
-    }
+    public String getItem_Name() {return Item_Name;}
 
-    public void setItemID(String Item_ID) {
-        this.itemID = Item_ID;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String Item_Name) {this.itemName = Item_Name;}
+    public void setItem_Name(String Item_name) {this.Item_Name = Item_name;}
 
     public String getQuantity() {
         return Quantity;
     }
 
-    public void setQuantity(String Quantity){this.Quantity = Quantity;}
+    public void setQuantity(String quantity){this.Quantity = quantity;}
 
-    public String getPurchaseDate(){return PurchaseDate;}
+    public String getDuration(){return Duration;}
 
-    public void setPurchaseDate(String PurchaseDate){this.PurchaseDate = PurchaseDate;}
-
-
-
+    public void setDuration(String duration){this.Duration = duration;}
 
 }
