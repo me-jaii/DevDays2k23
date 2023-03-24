@@ -5,6 +5,7 @@
     <string name="login_button_text" />
     <string name="register_text" />
     <string name="choose_an_option">Choose an option:</string>
+    <string name="add_button">Add Item</string>
 
     <array name="my_array">
         <item>Long-Term</item>
