@@ -24,76 +24,76 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseUser mUser = mAuth.getCurrentUser();
-    String userEmail = mUser.getEmail();
-    DocumentReference dUser = db.collection("users").document(userEmail).collection("Items").document();
     SeekBar seekbar;
     TextView Text_message;
+    EditText itemName;
+    TextView quant;
+    Button addButton;
     RadioGroup group;
-    RadioButton normal, cold;
-
+    RadioButton normal, cold , sel;
+    String nametxt, quanttitystr, userEmail;
     User user;
+    Spinner mySpinner;
+    DocumentReference dUser;
+    FirebaseAuth mAuth;
+    FirebaseUser mUser;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        userEmail = mUser.getEmail();
+        dUser = db.collection("users").document(userEmail).collection("Items").document();
 
         user = new User();
-
-        EditText itemName = findViewById(R.id.item_name);
-        TextView quant = findViewById(R.id.quantity);
-        Button addButton = findViewById(R.id.addNoteButton);
+        itemName = findViewById(R.id.item_name);
+        quant = findViewById(R.id.quantity);
+        addButton = findViewById(R.id.addNoteButton);
         normal = findViewById(R.id.normalst);
         cold = findViewById(R.id.coldst);
-        Spinner mySpinner = findViewById(R.id.my_spinner);
+        mySpinner = findViewById(R.id.my_spinner);
         group = findViewById(R.id.radio_group);
         normal = findViewById(R.id.normalst);
         cold = findViewById(R.id.coldst);
         normal = findViewById(R.id.normalst);
         cold = findViewById(R.id.coldst);
+        normal.setSelected(true);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                String item_name = itemName.getText().toString();
-//                String quantity = quant.getText().toString();
-//                String duration = mySpinner.getSelectedItem().toString();
-
                 user.setItem_Name(itemName.getText().toString());
                 user.setQuantity(quant.getText().toString());
                 user.setDuration(mySpinner.getSelectedItem().toString());
+                int selectedId = group.getCheckedRadioButtonId();
+                sel = (RadioButton) findViewById(selectedId);
 
 
-                String nametxt = itemName.getText().toString();
-                String quanttitystr = quant.getText().toString();
-//                String spnr = mySpinner.getStorType().toString();
+
+                nametxt = itemName.getText().toString();
+                quanttitystr = quant.getText().toString();
 
                 if(TextUtils.isEmpty(nametxt)){
                     itemName.setError("Item name is Required !!");
+                    return;
                 }
+
                 if(TextUtils.isEmpty(quanttitystr)) {
                     quant.setError("Quantity is Required !!");
-                }
-//                if(TextUtils.isEmpty(spnr)) {
-//                    quant.setError("Storage type  is Required !!");
-//                }
-
-                else {
-                    setData();
-
+                    return;
                 }
 
-            }
-        });
-
-        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton radioButton = (RadioButton) findViewById(checkedId);
-                user.setStorType(radioButton.getText().toString());
-                //Toast.makeText(getApplicationContext(),radioButton.getText(),Toast.LENGTH_LONG).show();
+                if(selectedId==-1){
+                    Toast.makeText(MainActivity.this,"Nothing selected", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else{
+                    user.setStorType(sel.getText().toString());
+                }
+                setData();
             }
         });
 
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
                     startActivity(intent);
-                    Toast.makeText(MainActivity.this, "Firestore Updated", Toast.LENGTH_SHORT).show();
+                    finish();
                 } else {
                     Toast.makeText(MainActivity.this, "Updation Failed", Toast.LENGTH_SHORT).show();
                 }

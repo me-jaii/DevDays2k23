@@ -16,11 +16,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class loginActivity extends AppCompatActivity {
-    private EditText email, password;
-    private Button loginBtn;
-    private TextView loginQn;
-    private FirebaseAuth mAuth;
-    private ProgressDialog progressDialog;
+    EditText email, password;
+    Button loginBtn;
+    TextView loginQn;
+    FirebaseAuth mAuth;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +36,7 @@ public class loginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(loginActivity.this, RegistrationActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -63,6 +64,7 @@ public class loginActivity extends AppCompatActivity {
                             if (task.isSuccessful()){
                                 Toast.makeText(loginActivity.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
                                 Intent intent=new Intent(loginActivity.this,DisplayActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 finish();
                                 progressDialog.dismiss();

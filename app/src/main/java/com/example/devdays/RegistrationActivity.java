@@ -17,12 +17,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistrationActivity extends AppCompatActivity {
-    private EditText email, password;
-    private Button registerbtn;
-    private TextView registerqn;
-
-    private FirebaseAuth mAuth;
-    private ProgressDialog progressDialog;
+    EditText email, password;
+    Button registerbtn;
+    TextView registerqn;
+    FirebaseAuth mAuth;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +29,6 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         mAuth = FirebaseAuth.getInstance();
-
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         registerbtn = findViewById(R.id.registerbtn);
@@ -39,7 +37,8 @@ public class RegistrationActivity extends AppCompatActivity {
         registerqn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegistrationActivity.this, com.example.devdays.loginActivity.class);
+                Intent intent = new Intent(RegistrationActivity.this, loginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
