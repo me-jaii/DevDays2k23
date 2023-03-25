@@ -13,7 +13,7 @@ public class User {
     @NonNull
     @Override
     public String toString() {
-        return Item_Name + Quantity + Duration;
+        return Item_Name + Quantity + Duration + storType;
     }
 
     public User() {

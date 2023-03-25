@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         group = findViewById(R.id.radio_group);
         normal = findViewById(R.id.normalst);
         cold = findViewById(R.id.coldst);
-        group.addView(normal);
-        group.addView(cold);
+        normal = findViewById(R.id.normalst);
+        cold = findViewById(R.id.coldst);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
