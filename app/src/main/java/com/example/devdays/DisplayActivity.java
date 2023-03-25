@@ -16,19 +16,28 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+
 public class DisplayActivity extends AppCompatActivity {
     private static final String TAG = "Display";
     String allData="";
     FirebaseFirestore mstore;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser mUser = mAuth.getCurrentUser();
+    String userEmail = mUser.getEmail();
     CollectionReference mcollection;
     ListView listView;
     TextView textView;
-    String[] arraylist;
+    ArrayList<String> arraylist;
+
+    ArrayAdapter<String> adapter;
 
     private TextView quantityValueTextView;
     @Override
@@ -39,10 +48,10 @@ public class DisplayActivity extends AppCompatActivity {
 
         listView=(ListView)findViewById(R.id.listviewm);
         textView=(TextView)findViewById(R.id.textView);
-        arraylist = getResources().getStringArray(R.array.array_technology);
+        arraylist = new ArrayList<>();
 
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, arraylist);
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, arraylist);
         listView.setAdapter(adapter);
 
         FloatingActionButton fab = findViewById(R.id.actionbtn);
@@ -54,25 +63,20 @@ public class DisplayActivity extends AppCompatActivity {
             }
         });
 
-
         mstore=FirebaseFirestore.getInstance();
-        mcollection =mstore.collection("users");
+        mcollection =mstore.collection("users").document(userEmail).collection("Items");
         mcollection.get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (DocumentSnapshot objectDocumentSnapshot : queryDocumentSnapshots) {
                             User user = objectDocumentSnapshot.toObject(User.class);
-//                            String userName = objectDocumentSnapshot.getString("name");
-//                            String userEmail = objectDocumentSnapshot.getString("email_id");
-//                            String userMobile = objectDocumentSnapshot.getString("mobile_no");
-//                            String userDOB = objectDocumentSnapshot.getString("date_of_birth");
-                            System.out.println(user);
 
-//                            allData = "Name: " + userName + "\n" + "Email: " + userEmail + "\n" + "Mobile: " + userMobile +"\n" + "DOB: " +  userDOB + "\n";
+                            arraylist.add(user.toString());
+
                         }
 
-//                        objectTextView.setText(allData);
+                        adapter.notifyDataSetChanged();
 
                     }
                 });

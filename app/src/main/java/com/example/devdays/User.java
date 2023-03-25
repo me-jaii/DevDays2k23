@@ -7,17 +7,23 @@ public class User {
     String Item_Name;
     String Quantity;
     String Duration;
+
+    String storType;
+
     @NonNull
     @Override
     public String toString() {
         return Item_Name + Quantity + Duration;
     }
 
-    public User(String Item_name, String quantity, String duration) {
-        this.Item_Name = Item_name;
-        this.Quantity = quantity;
-        this.Duration = duration;
-//        this.storage = Gender;
+    public User() {
+    }
+
+    public User(String item_Name, String quantity, String duration, String storType) {
+        Item_Name = item_Name;
+        Quantity = quantity;
+        Duration = duration;
+        this.storType = storType;
     }
 
     public String getItem_Name() {return Item_Name;}
@@ -34,4 +40,11 @@ public class User {
 
     public void setDuration(String duration){this.Duration = duration;}
 
+    public String getStorType() {
+        return storType;
+    }
+
+    public void setStorType(String storType) {
+        this.storType = storType;
+    }
 }

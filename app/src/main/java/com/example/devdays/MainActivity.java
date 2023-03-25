@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,47 +30,57 @@ public class MainActivity extends AppCompatActivity {
     DocumentReference dUser = db.collection("users").document(userEmail).collection("Items").document();
     SeekBar seekbar;
     TextView Text_message;
+    RadioGroup group;
     RadioButton normal, cold;
 
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mUser.getEmail();
+        user = new User();
 
         EditText itemName = findViewById(R.id.item_name);
-        TextView quantity = findViewById(R.id.quantity);
+        TextView quant = findViewById(R.id.quantity);
         Button addButton = findViewById(R.id.addNoteButton);
         normal = findViewById(R.id.normalst);
         cold = findViewById(R.id.coldst);
         Spinner mySpinner = findViewById(R.id.my_spinner);
-
+        group = findViewById(R.id.radio_group);
+        normal = findViewById(R.id.normalst);
+        cold = findViewById(R.id.coldst);
+        group.addView(normal);
+        group.addView(cold);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Item_name = itemName.getText().toString();
-                String Quantity = quantity.getText().toString();
-                String Duration = mySpinner.getSelectedItem().toString();
-                User user = new User(Item_name, Quantity, Duration);
-                dUser.set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
-                            startActivity(intent);
-                            Toast.makeText(MainActivity.this, "Firestore Updated", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(MainActivity.this, "Updation Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+//                String item_name = itemName.getText().toString();
+//                String quantity = quant.getText().toString();
+//                String duration = mySpinner.getSelectedItem().toString();
+
+                user.setItem_Name(itemName.getText().toString());
+                user.setQuantity(quant.getText().toString());
+                user.setDuration(mySpinner.getSelectedItem().toString());
+
+                //User user = new User(Item_name, Quantity, Duration);
+                setData();
+
             }
         });
+
+        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton radioButton = (RadioButton) findViewById(checkedId);
+                user.setStorType(radioButton.getText().toString());
+                //Toast.makeText(getApplicationContext(),radioButton.getText(),Toast.LENGTH_LONG).show();
+            }
+        });
+
         Text_message = (TextView)findViewById(R.id.quantity);
         seekbar = (SeekBar)findViewById(R.id.seekBar);
-
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar,int progress,boolean fromUser){
@@ -85,4 +96,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void setData(){
+
+        dUser.set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(MainActivity.this, "Firestore Updated", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Updation Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
 }

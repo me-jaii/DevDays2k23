@@ -19,7 +19,6 @@ public class loginActivity extends AppCompatActivity {
     private EditText email, password;
     private Button loginBtn;
     private TextView loginQn;
-
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
     @Override
@@ -46,7 +45,6 @@ public class loginActivity extends AppCompatActivity {
             public void onClick(View view){
                 String emailString = email.getText().toString();
                 String passwordString = password.getText().toString();
-
 
                 if(TextUtils.isEmpty(emailString)){
                     email.setError("Email is Required !!");
@@ -79,7 +77,6 @@ public class loginActivity extends AppCompatActivity {
 
             }
         });
-
 
     }
 }
