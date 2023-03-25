@@ -2,6 +2,7 @@ package com.example.devdays;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,8 +65,25 @@ public class MainActivity extends AppCompatActivity {
                 user.setQuantity(quant.getText().toString());
                 user.setDuration(mySpinner.getSelectedItem().toString());
 
-                //User user = new User(Item_name, Quantity, Duration);
-                setData();
+
+                String nametxt = itemName.getText().toString();
+                String quanttitystr = quant.getText().toString();
+//                String spnr = mySpinner.getStorType().toString();
+
+                if(TextUtils.isEmpty(nametxt)){
+                    itemName.setError("Item name is Required !!");
+                }
+                if(TextUtils.isEmpty(quanttitystr)) {
+                    quant.setError("Quantity is Required !!");
+                }
+//                if(TextUtils.isEmpty(spnr)) {
+//                    quant.setError("Storage type  is Required !!");
+//                }
+
+                else {
+                    setData();
+
+                }
 
             }
         });

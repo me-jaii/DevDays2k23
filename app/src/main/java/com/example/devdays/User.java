@@ -7,13 +7,12 @@ public class User {
     String Item_Name;
     String Quantity;
     String Duration;
-
     String storType;
 
     @NonNull
     @Override
     public String toString() {
-        return Item_Name + Quantity + Duration + storType;
+        return Item_Name + "\n"+ Quantity + "\n"+ Duration + "\n"+ storType;
     }
 
     public User() {
