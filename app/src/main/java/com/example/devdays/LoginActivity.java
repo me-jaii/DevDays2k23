@@ -15,7 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class loginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     EditText email, password;
     Button loginBtn;
     TextView loginQn;
@@ -35,7 +35,7 @@ public class loginActivity extends AppCompatActivity {
         loginQn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(loginActivity.this, RegistrationActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -62,15 +62,15 @@ public class loginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                Toast.makeText(loginActivity.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
-                                Intent intent=new Intent(loginActivity.this,DisplayActivity.class);
+                                Toast.makeText(LoginActivity.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
+                                Intent intent=new Intent(LoginActivity.this,DisplayActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 finish();
                                 progressDialog.dismiss();
                             }
                             else {
-                                Toast.makeText(loginActivity.this,"Username or Password incorrect", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this,"Username or Password incorrect", Toast.LENGTH_SHORT).show();
                                 progressDialog.dismiss();
                             }
                         }

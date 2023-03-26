@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#4169E1"
-    android:padding="16dp"
-    tools:context=".loginActivity">
+    android:padding="15dp"
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/logo_imageview"

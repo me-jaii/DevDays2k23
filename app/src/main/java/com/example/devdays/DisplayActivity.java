@@ -1,19 +1,16 @@
 package com.example.devdays;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,10 +33,13 @@ public class DisplayActivity extends AppCompatActivity {
     ListView listView;
     TextView textView;
     ArrayList<String> arraylist;
+    ImageButton logout;
+    FloatingActionButton fab;
 
     ArrayAdapter<String> adapter;
 
     private TextView quantityValueTextView;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -48,17 +48,29 @@ public class DisplayActivity extends AppCompatActivity {
 
         listView=(ListView)findViewById(R.id.listviewm);
         textView=(TextView)findViewById(R.id.textView);
+        logout = findViewById(R.id.logout);
         arraylist = new ArrayList<>();
 
 
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, arraylist);
         listView.setAdapter(adapter);
 
-        FloatingActionButton fab = findViewById(R.id.actionbtn);
+
+        fab = findViewById(R.id.actionbtn);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DisplayActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(DisplayActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

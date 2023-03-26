@@ -37,7 +37,7 @@ public class RegistrationActivity extends AppCompatActivity {
         registerqn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegistrationActivity.this, loginActivity.class);
+                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -65,13 +65,13 @@ public class RegistrationActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                Intent intent=new Intent(RegistrationActivity.this,loginActivity.class);
+                                Intent intent=new Intent(RegistrationActivity.this, LoginActivity.class);
                                 startActivity(intent);
                                 finish();
                                 progressDialog.dismiss();
                             }
                             else {
-                                Toast.makeText(RegistrationActivity.this,task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegistrationActivity.this,"Something went wrong", Toast.LENGTH_SHORT).show();
                                 progressDialog.dismiss();
                             }
                         }
