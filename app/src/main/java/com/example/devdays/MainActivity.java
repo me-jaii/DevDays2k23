@@ -1,135 +1,98 @@
 package com.example.devdays;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.SeekBar;
-import android.widget.Spinner;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.RadioButton;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    SeekBar seekbar;
-    TextView Text_message;
-    EditText itemName;
-    TextView quant;
-    Button addButton;
-    RadioGroup group;
-    RadioButton normal, cold , sel;
-    String nametxt, quanttitystr, userEmail;
-    User user;
-    Spinner mySpinner;
-    DocumentReference dUser;
-    FirebaseAuth mAuth;
-    FirebaseUser mUser;
-    FirebaseFirestore db;
+    String allData="";
+    FirebaseFirestore mstore;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser mUser = mAuth.getCurrentUser();
+    String userEmail = mUser.getEmail();
+    CollectionReference mcollection;
+    ListView listView;
+    TextView textView;
+    ArrayList<String> arraylist;
+    ImageButton logout;
+    FloatingActionButton fab;
 
+    ArrayAdapter<String> adapter;
+
+    private TextView quantityValueTextView;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        db = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
-        userEmail = mUser.getEmail();
-        dUser = db.collection("users").document(userEmail).collection("Items").document();
 
-        user = new User();
-        itemName = findViewById(R.id.item_name);
-        quant = findViewById(R.id.quantity);
-        addButton = findViewById(R.id.addNoteButton);
-        normal = findViewById(R.id.normalst);
-        cold = findViewById(R.id.coldst);
-        mySpinner = findViewById(R.id.my_spinner);
-        group = findViewById(R.id.radio_group);
-        normal = findViewById(R.id.normalst);
-        cold = findViewById(R.id.coldst);
-        normal = findViewById(R.id.normalst);
-        cold = findViewById(R.id.coldst);
-        normal.setSelected(true);
-        addButton.setOnClickListener(new View.OnClickListener() {
+        listView=(ListView)findViewById(R.id.listviewm);
+        textView=(TextView)findViewById(R.id.textView);
+        logout = findViewById(R.id.logout);
+        arraylist = new ArrayList<>();
+
+
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, arraylist);
+        listView.setAdapter(adapter);
+
+
+        fab = findViewById(R.id.actionbtn);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user.setItem_Name(itemName.getText().toString());
-                user.setQuantity(quant.getText().toString());
-                user.setDuration(mySpinner.getSelectedItem().toString());
-                int selectedId = group.getCheckedRadioButtonId();
-                sel = (RadioButton) findViewById(selectedId);
-
-
-
-                nametxt = itemName.getText().toString();
-                quanttitystr = quant.getText().toString();
-
-                if(TextUtils.isEmpty(nametxt)){
-                    itemName.setError("Item name is Required !!");
-                    return;
-                }
-
-                if(TextUtils.isEmpty(quanttitystr)) {
-                    quant.setError("Quantity is Required !!");
-                    return;
-                }
-
-                if(selectedId==-1){
-                    Toast.makeText(MainActivity.this,"Nothing selected", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                else{
-                    user.setStorType(sel.getText().toString());
-                }
-                setData();
+                Intent intent = new Intent(MainActivity.this, InputActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
-        Text_message = (TextView)findViewById(R.id.quantity);
-        seekbar = (SeekBar)findViewById(R.id.seekBar);
-        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar,int progress,boolean fromUser){
-                Text_message.setText(String.valueOf(progress + 1));
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar){
-
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
-    }
 
-    private void setData(){
+        mstore=FirebaseFirestore.getInstance();
+        mcollection =mstore.collection("users").document(userEmail).collection("Items");
+        mcollection.get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot objectDocumentSnapshot : queryDocumentSnapshots) {
+                            User user = objectDocumentSnapshot.toObject(User.class);
 
-        dUser.set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(MainActivity.this, "Updation Failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+                            arraylist.add(user.toString());
+
+                        }
+
+                        adapter.notifyDataSetChanged();
+
+                    }
+                });
 
     }
-
 }
